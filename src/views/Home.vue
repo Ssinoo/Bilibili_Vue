@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <nav-bar></nav-bar>
     <van-tabs v-model="active" scrollspy sticky>
       <!-- 从后端请求的数据 用v-for循环打印出来 -->
@@ -7,6 +8,7 @@
         内容 {{ index }}
       </van-tab>
     </van-tabs>
+    <div @click="$router.push('/register')">az </div>
   </div>
 </template>
 
@@ -29,6 +31,7 @@ export default {
       // 请求到的data数据传给定义的category数组内
       this.category = res.data
     }
+
   },
   created () {
     this.selectCategory()
