@@ -1,18 +1,41 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <nav-bar></nav-bar>
+    <van-tabs v-model="active" scrollspy sticky>
+      <!-- 从后端请求的数据 用v-for循环打印出来 -->
+      <van-tab v-for="(item,index) in category" :key="index" :title="item.title">
+        内容 {{ index }}
+      </van-tab>
+    </van-tabs>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import NavBar from '../components/common/NavBar'
 export default {
-  name: 'Home',
+  data () {
+    return {
+      category: [],
+      active: 0
+    }
+  },
   components: {
-    HelloWorld
+    NavBar
+  },
+  methods: {
+    async selectCategory () {
+      // 请求后端的数据
+      const res = await this.$http.get('/category')
+      // 请求到的data数据传给定义的category数组内
+      this.category = res.data
+    }
+  },
+  created () {
+    this.selectCategory()
   }
 }
 </script>
+
+<style>
+
+</style>
